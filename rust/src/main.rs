@@ -6,6 +6,7 @@ use std::{
 
 use crate::solvable::Registry;
 
+mod solutions;
 mod solvable;
 
 fn main() -> io::Result<()> {
@@ -31,9 +32,9 @@ fn main() -> io::Result<()> {
         .enumerate()
         .for_each(|(i, (first, second))| {
             println!("Day {}:", i + 1);
-            println!("=======> Task 1: {}", first);
-            println!("=======> Task 2: {}", second);
-            println!("------------------------");
+            println!("Task 1 -> {}", first);
+            println!("Task 2 -> {}", second);
+            println!("--------------------------------------");
         });
 
     Ok(())

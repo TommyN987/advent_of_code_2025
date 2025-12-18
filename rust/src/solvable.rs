@@ -1,10 +1,19 @@
 use std::fmt::Display;
 
+use crate::solutions::Day01;
+
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Solution(i128);
+
+impl Solution {
+    pub fn new(num: i128) -> Self {
+        Self(num)
+    }
+}
 
 impl Display for Solution {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        writeln!(f, "The solution is {}", self.0)
+        write!(f, "The solution is {}", self.0)
     }
 }
 
@@ -20,6 +29,7 @@ pub struct Registry {
 impl Registry {
     pub fn new() -> Self {
         let mut solvers: Vec<Box<dyn Solvable>> = Vec::with_capacity(25);
+        solvers.push(Box::new(Day01));
 
         Self { solvers }
     }
