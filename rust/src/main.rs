@@ -12,7 +12,7 @@ mod solvable;
 fn main() -> io::Result<()> {
     let source_dir = "../inputs";
     let mut paths: Vec<PathBuf> = read_dir(source_dir)?
-        .filter_map(|entry| entry.ok())
+        .filter_map(Result::ok)
         .filter(|entry| entry.path().is_file())
         .map(|entry| entry.path())
         .collect();
@@ -32,8 +32,8 @@ fn main() -> io::Result<()> {
         .enumerate()
         .for_each(|(i, (first, second))| {
             println!("Day {}:", i + 1);
-            println!("Task 1 -> {}", first);
-            println!("Task 2 -> {}", second);
+            println!("Task 1 -> {first}");
+            println!("Task 2 -> {second}");
             println!("--------------------------------------");
         });
 

@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-use crate::solutions::Day01;
+use crate::solutions::{Day01, Day02};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Solution(i128);
@@ -30,6 +30,7 @@ impl Registry {
     pub fn new() -> Self {
         let mut solvers: Vec<Box<dyn Solvable>> = Vec::with_capacity(25);
         solvers.push(Box::new(Day01));
+        solvers.push(Box::new(Day02));
 
         Self { solvers }
     }
