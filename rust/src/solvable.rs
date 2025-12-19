@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-use crate::solutions::{Day01, Day02, Day03, Day04, Day05};
+use crate::solutions::{Day01, Day02, Day03, Day04, Day05, Day06};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Solution(i128);
@@ -34,6 +34,7 @@ impl Registry {
         solvers.push(Box::new(Day03));
         solvers.push(Box::new(Day04));
         solvers.push(Box::new(Day05));
+        solvers.push(Box::new(Day06));
 
         Self { solvers }
     }
