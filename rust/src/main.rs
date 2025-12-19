@@ -6,6 +6,7 @@ use std::{
 
 use crate::solvable::Registry;
 
+mod point;
 mod solutions;
 mod solvable;
 

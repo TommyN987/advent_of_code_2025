@@ -1,6 +1,9 @@
-use std::{collections::HashSet, ops::Add};
+use std::collections::HashSet;
 
-use crate::solvable::{Solution, Solvable};
+use crate::{
+    point::Point2D,
+    solvable::{Solution, Solvable},
+};
 
 pub struct Day04;
 
@@ -73,43 +76,6 @@ impl Paper {
             })
             .collect();
         Self(set)
-    }
-}
-
-#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
-struct Point2D {
-    x: i32,
-    y: i32,
-}
-
-impl Point2D {
-    const NORTH: Self = Self { x: 0, y: -1 };
-    const SOUTH: Self = Self { x: 0, y: 1 };
-    const EAST: Self = Self { x: 1, y: 0 };
-    const WEST: Self = Self { x: -1, y: 0 };
-
-    fn neighbors(self) -> [Self; 8] {
-        [
-            self + Self::NORTH + Self::WEST,
-            self + Self::NORTH,
-            self + Self::NORTH + Self::EAST,
-            self + Self::EAST,
-            self + Self::SOUTH + Self::EAST,
-            self + Self::SOUTH,
-            self + Self::SOUTH + Self::WEST,
-            self + Self::WEST,
-        ]
-    }
-}
-
-impl Add for Point2D {
-    type Output = Self;
-
-    fn add(self, rhs: Self) -> Self::Output {
-        Self {
-            x: self.x + rhs.x,
-            y: self.y + rhs.y,
-        }
     }
 }
 
