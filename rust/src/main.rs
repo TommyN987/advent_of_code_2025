@@ -34,7 +34,7 @@ fn main() -> io::Result<()> {
             println!("Day {}:", i + 1);
             println!("Task 1 -> {first}");
             println!("Task 2 -> {second}");
-            println!("--------------------------------------");
+            println!("--------------------------------------------");
         });
 
     Ok(())
