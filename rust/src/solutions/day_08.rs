@@ -10,7 +10,7 @@ impl Solvable for Day08 {
     }
 
     fn second(&self, input: &str) -> crate::solvable::Solution {
-        todo!()
+        Solution::new(solve_second(input))
     }
 }
 
@@ -31,11 +31,11 @@ impl Point3D {
         Self { x, y, z }
     }
 
-    fn dist_to(self, other: Self) -> u128 {
+    fn dist_to(self, other: Self) -> i128 {
         let dx = (self.x as i128) - (other.x as i128);
         let dy = (self.y as i128) - (other.y as i128);
         let dz = (self.z as i128) - (other.z as i128);
-        (dx * dx + dy * dy + dz * dz) as u128
+        dx * dx + dy * dy + dz * dz
     }
 }
 
@@ -43,7 +43,7 @@ impl Point3D {
 struct Edge {
     a: usize,
     b: usize,
-    dist: u128,
+    dist: i128,
 }
 
 #[derive(Debug)]
@@ -85,8 +85,8 @@ impl UnionFind {
         true
     }
 
-    fn component_sizes(&mut self) -> Vec<usize> {
-        let mut map: HashMap<usize, usize> = HashMap::new();
+    fn component_sizes(&mut self) -> Vec<isize> {
+        let mut map: HashMap<usize, isize> = HashMap::new();
         for i in 0..self.parent.len() {
             let r = self.find(i);
             *map.entry(r).or_insert(0) += 1;
@@ -95,15 +95,16 @@ impl UnionFind {
     }
 }
 
-fn solve_first(input: &str, k: usize) -> i128 {
-    let points: Vec<Point3D> = input
+fn prepare_points(input: &str) -> Vec<Point3D> {
+    input
         .lines()
         .filter(|l| !l.trim().is_empty())
         .map(Point3D::parse)
-        .collect();
+        .collect()
+}
 
+fn build_sorted_edges(points: &[Point3D]) -> Vec<Edge> {
     let n = points.len();
-
     let mut edges: Vec<Edge> = Vec::with_capacity(n * (n - 1) / 2);
 
     for i in 0..n {
@@ -117,6 +118,13 @@ fn solve_first(input: &str, k: usize) -> i128 {
     }
 
     edges.sort_unstable_by(|e1, e2| (e1.dist, e1.a, e1.b).cmp(&(e2.dist, e2.a, e2.b)));
+    edges
+}
+
+fn solve_first(input: &str, k: usize) -> i128 {
+    let points = prepare_points(input);
+    let edges = build_sorted_edges(&points);
+    let n = points.len();
 
     let mut uf = UnionFind::new(n);
 
@@ -127,13 +135,27 @@ fn solve_first(input: &str, k: usize) -> i128 {
     let mut sizes = uf.component_sizes();
     sizes.sort_unstable_by(|a, b| b.cmp(a));
 
-    let top3 = sizes
-        .into_iter()
-        .take(3)
-        .map(|x| x as i128)
-        .collect::<Vec<_>>();
+    sizes.into_iter().take(3).map(|x| x as i128).product()
+}
 
-    top3.into_iter().product()
+fn solve_second(input: &str) -> i128 {
+    let points = prepare_points(input);
+    let edges = build_sorted_edges(&points);
+    let n = points.len();
+
+    let mut uf = UnionFind::new(n);
+    let mut components = n;
+
+    for e in edges {
+        if uf.union(e.a, e.b) {
+            components -= 1;
+            if components == 1 {
+                return (points[e.a].x as i128) * (points[e.b].x as i128);
+            }
+        }
+    }
+
+    unreachable!("Complete graph should always become connected");
 }
 
 #[cfg(test)]
