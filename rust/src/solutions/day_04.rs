@@ -63,8 +63,8 @@ impl Paper {
                 row.bytes().enumerate().filter_map(move |(y, b)| {
                     if b == b'@' {
                         Some(Point2D {
-                            x: x as i32,
-                            y: y as i32,
+                            x: i32::try_from(x).unwrap(),
+                            y: i32::try_from(y).unwrap(),
                         })
                     } else {
                         None

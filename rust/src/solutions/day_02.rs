@@ -14,7 +14,7 @@ impl Solvable for Day02 {
             .filter(|&n| is_double_repeat(n))
             .sum::<i64>();
 
-        Solution::new(sum as i128)
+        Solution::new(i128::from(sum))
     }
 
     fn second(&self, input: &str) -> crate::solvable::Solution {
@@ -23,7 +23,7 @@ impl Solvable for Day02 {
             .filter(|&n| is_repeated_at_least_twice(n))
             .sum::<i64>();
 
-        Solution::new(sum as i128)
+        Solution::new(i128::from(sum))
     }
 }
 
@@ -74,13 +74,13 @@ mod tests {
     fn test_day_02_first_task() {
         let day_02 = Day02;
         let solution = day_02.first(INPUT);
-        assert_eq!(Solution::new(1227775554), solution);
+        assert_eq!(Solution::new(1_227_775_554), solution);
     }
 
     #[test]
     fn test_day_02_second_task() {
         let day_02 = Day02;
         let solution = day_02.second(INPUT);
-        assert_eq!(Solution::new(4174379265), solution);
+        assert_eq!(Solution::new(4_174_379_265), solution);
     }
 }

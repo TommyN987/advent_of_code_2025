@@ -64,11 +64,11 @@ impl Ranges {
         let mut merged: Vec<Range> = vec![];
 
         for r in self.0 {
-            if let Some(last) = merged.last_mut() {
-                if r.from <= last.to + 1 {
-                    last.to = last.to.max(r.to);
-                    continue;
-                }
+            if let Some(last) = merged.last_mut()
+                && r.from <= last.to + 1
+            {
+                last.to = last.to.max(r.to);
+                continue;
             }
             merged.push(r);
         }

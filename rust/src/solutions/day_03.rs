@@ -21,7 +21,7 @@ fn max_pair_value(line: &str) -> i128 {
         line.bytes()
             .rev()
             .fold((0i128, None::<i128>), |(best, best_right), b| {
-                let d = (b - b'0') as i128;
+                let d = i128::from(b - b'0');
                 let best = match best_right {
                     Some(r) => best.max(10 * d + r),
                     None => best,
@@ -82,6 +82,6 @@ mod tests {
     fn test_day_03_second_task() {
         let day_03 = Day03;
         let solution = day_03.second(INPUT);
-        assert_eq!(Solution::new(3121910778619), solution);
+        assert_eq!(Solution::new(3_121_910_778_619), solution);
     }
 }

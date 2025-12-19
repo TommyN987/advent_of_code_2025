@@ -36,7 +36,7 @@ impl Solvable for Day06 {
             .into_iter()
             .map(|m| match m.op {
                 Op::Add => m.values.into_iter().sum::<i128>(),
-                Op::Mul => m.values.into_iter().fold(1, |acc, x| acc * x),
+                Op::Mul => m.values.into_iter().product::<i128>(),
             })
             .sum();
 
@@ -114,7 +114,7 @@ impl Worksheet {
 
         match p.op {
             Op::Add => values.into_iter().sum(),
-            Op::Mul => values.into_iter().fold(1, |acc, x| acc * x),
+            Op::Mul => values.into_iter().product::<i128>(),
         }
     }
 
@@ -185,12 +185,10 @@ impl Worksheet {
             }
         }
 
-        let num = str::from_utf8(&digits)
+        str::from_utf8(&digits)
             .expect("Digits are ASCII")
             .parse::<i128>()
-            .expect("Column digits form a valid integer");
-
-        num
+            .expect("Column digits form a valid integer")
     }
 }
 
@@ -209,13 +207,13 @@ mod tests {
     fn test_day_06_first_task() {
         let day_06 = Day06;
         let solution = day_06.first(INPUT);
-        assert_eq!(Solution::new(4277556), solution);
+        assert_eq!(Solution::new(4_277_556), solution);
     }
 
     #[test]
     fn test_day_06_second_task() {
         let day_06 = Day06;
         let solution = day_06.second(INPUT);
-        assert_eq!(Solution::new(3263827), solution);
+        assert_eq!(Solution::new(3_263_827), solution);
     }
 }
